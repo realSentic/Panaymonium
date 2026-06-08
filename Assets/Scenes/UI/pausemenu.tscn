@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://ceoa7hjue6xwp"]
+
+[ext_resource type="FontFile" uid="uid://dhd5gs6nwryj1" path="res://Assets/Font/I Still Know.ttf" id="1_0mw5b"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1314820598]
+
+[node name="DimmedBG" type="ColorRect" parent="." unique_id=203208441]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7137255)
+
+[node name="Paused" type="Label" parent="." unique_id=1745687578]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -123.0
+offset_top = 87.0
+offset_right = 123.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_0mw5b")
+theme_override_font_sizes/font_size = 62
+text = "PAUSED"

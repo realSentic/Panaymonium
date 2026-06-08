@@ -1,0 +1,13 @@
+{
+	"flashlight": {
+		"name": "Flashlight",
+		"description": "A handheld flashlight.",
+		"icon": "res://Assets/Pictures/Inventory/Flashlight/flashlight.png",
+		"preview": "res://Assets/Scenes/Objects/Flashlight/SpinningFlashlight.tscn"
+	},
+	"key": {
+		"name": "Rusty Key",
+		"description": "Opens something nearby.",
+		"icon": "res://Models/PSX Files/TEX_Arch_02.png"
+	}
+}

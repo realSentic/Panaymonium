@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cmikbd2lvsnwd"]
+
+[ext_resource type="Script" uid="uid://b1gk8txwbv1xr" path="res://Scripts/GDScript/crosshair.gd" id="1_ly6fr"]
+[ext_resource type="Texture2D" uid="uid://vqj3j4evuw6k" path="res://Assets/Pictures/UI/crosshair001.png" id="1_rtxwy"]
+
+[node name="Crosshair" type="CanvasLayer" unique_id=368784879]
+script = ExtResource("1_ly6fr")
+
+[node name="Crosshair" type="TextureRect" parent="." unique_id=542750408]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rtxwy")

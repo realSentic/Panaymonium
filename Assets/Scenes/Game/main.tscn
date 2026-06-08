@@ -1,0 +1,335 @@
+[gd_scene format=3 uid="uid://dy3pwcyd5hk0m"]
+
+[ext_resource type="Script" uid="uid://cc4fy17bq8fap" path="res://Scripts/GDScript/main.gd" id="1_272bh"]
+[ext_resource type="PackedScene" uid="uid://fgip0x7wi28d" path="res://Assets/Scenes/Game/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cr1fh52sposlv" path="res://Assets/Models/Rooms/ReceptionRoom.tscn" id="3_5vw27"]
+[ext_resource type="Shader" uid="uid://bwdecqcqra8qx" path="res://Scripts/GDShader/psx.gdshader" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://citt0ulknmmjs" path="res://Assets/Scenes/Objects/Chest/ChestInteraction.tscn" id="4_getpj"]
+[ext_resource type="FontFile" uid="uid://dhd5gs6nwryj1" path="res://Assets/Font/I Still Know.ttf" id="5_lquwl"]
+[ext_resource type="AudioStream" uid="uid://7edxh4ok3py1" path="res://Assets/Audios/Voice/findthefirstkey.mp3" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://ceoa7hjue6xwp" path="res://Assets/Scenes/UI/pausemenu.tscn" id="9_cegan"]
+[ext_resource type="AudioStream" uid="uid://j7ihyo2jmfde" path="res://Assets/Audios/Voice/VLM1.mp3" id="9_efxa6"]
+[ext_resource type="AudioStream" uid="uid://bhlu0sfgqv6qt" path="res://Assets/Audios/SFX/rain.ogg" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://cmikbd2lvsnwd" path="res://Assets/Scenes/UI/crosshair.tscn" id="9_ryguw"]
+[ext_resource type="Script" uid="uid://dd0pbbio8awu5" path="res://Scripts/GDScript/next.gd" id="9_vivmo"]
+[ext_resource type="AudioStream" uid="uid://cwwe7ew1ogfej" path="res://Assets/Audios/Voice/VLM2.mp3" id="10_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dryi8auc5463s" path="res://Assets/Scenes/UI/inventorymenu.tscn" id="10_getpj"]
+[ext_resource type="Script" uid="uid://bwij5odmx3lh2" path="res://Scripts/GDScript/progress_bar.gd" id="12_ryguw"]
+[ext_resource type="AudioStream" uid="uid://b7hx355044d2f" path="res://Assets/Audios/SFX/chestopen.mp3" id="14_w48qg"]
+[ext_resource type="AudioStream" uid="uid://centmflrpw57n" path="res://Assets/Audios/Voice/VLM3.mp3" id="15_074og"]
+[ext_resource type="Script" uid="uid://dyvy4nr3723ni" path="res://Scripts/GDScript/objvisible.gd" id="15_d13ii"]
+[ext_resource type="AudioStream" uid="uid://q4hrq1pnuacv" path="res://Assets/Audios/Voice/VLM4.mp3" id="16_cegan"]
+[ext_resource type="Script" uid="uid://dwrdtuk3tfdf0" path="res://Scripts/GDScript/pause.gd" id="20_82xsv"]
+[ext_resource type="AudioStream" uid="uid://d3x2axlaodqe0" path="res://Assets/Audios/SFX/inventory_open.wav" id="21_d13ii"]
+[ext_resource type="Script" uid="uid://bww4a3adya1oq" path="res://Scripts/GDScript/inventory.gd" id="24_1u8w0"]
+
+[sub_resource type="Environment" id="Environment_ig7tw"]
+background_mode = 1
+background_color = Color(0.5128301, 0.2843108, 0.50242794, 1)
+background_energy_multiplier = 2.32
+ambient_light_source = 2
+ambient_light_color = Color(0.33588332, 0.13620517, 0.26770946, 1)
+ambient_light_sky_contribution = 0.45
+ambient_light_energy = 1.05
+tonemap_mode = 2
+tonemap_exposure = 0.25
+ssao_enabled = true
+glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 16.0
+fog_density = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bvp3"]
+shader = ExtResource("3_h2yge")
+shader_parameter/pixel_resolution = 512.0
+shader_parameter/color_steps = 32
+shader_parameter/noise_strength = 0.1
+shader_parameter/enable_dither = true
+shader_parameter/dither_strength = 0.3
+shader_parameter/enable_glow = true
+shader_parameter/glow_strength = 0.4
+shader_parameter/glow_spread = 0.005
+shader_parameter/enable_vintage = true
+shader_parameter/vintage_strength = 0.6650000315875
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w48qg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2cqfq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vivmo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kek77"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_074og"]
+bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0.7882353)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cegan"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Main" type="Node3D" unique_id=1890810655]
+process_mode = 1
+script = ExtResource("1_272bh")
+
+[node name="Player" parent="." unique_id=22872040 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7270086, 1.0775268, 25.328342)
+
+[node name="Environment" type="Node3D" parent="." unique_id=1845518039]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=739609866]
+environment = SubResource("Environment_ig7tw")
+
+[node name="Build" type="Node3D" parent="." unique_id=76692758]
+
+[node name="Room1" parent="Build" unique_id=1954024914 instance=ExtResource("3_5vw27")]
+
+[node name="Interactions" type="Node3D" parent="." unique_id=818989739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.6776814, 0)
+
+[node name="Chest" parent="Interactions" unique_id=1807583506 instance=ExtResource("4_getpj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.24508, 5.56733, 14.453393)
+
+[node name="Chest2" parent="Interactions" unique_id=1659861245 instance=ExtResource("4_getpj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.24508, 5.56733, 9.959708)
+
+[node name="Chest3" parent="Interactions" unique_id=404038493 instance=ExtResource("4_getpj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.24508, 5.56733, 12.319425)
+
+[node name="InventoryUI" type="CanvasLayer" parent="." unique_id=2088054740]
+
+[node name="Inventory" parent="InventoryUI" unique_id=426981541 instance=ExtResource("10_getpj")]
+visible = false
+
+[node name="First Person View" type="CanvasLayer" parent="." unique_id=1328478855]
+
+[node name="ColorRect" type="ColorRect" parent="First Person View" unique_id=259203384]
+z_index = 999
+material = SubResource("ShaderMaterial_1bvp3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -8.0
+offset_right = 4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Fade" type="ColorRect" parent="First Person View" unique_id=1272451800]
+visible = false
+z_index = 999
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Dim" type="ColorRect" parent="First Person View" unique_id=1100900616]
+visible = false
+z_index = 999
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="TextureRect" type="TextureRect" parent="First Person View" unique_id=659902286]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenu" parent="First Person View" unique_id=1314820598 instance=ExtResource("9_cegan")]
+visible = false
+
+[node name="Crosshair" parent="First Person View" unique_id=368784879 instance=ExtResource("9_ryguw")]
+
+[node name="View" type="CanvasLayer" parent="." unique_id=612417017]
+
+[node name="Next" type="Button" parent="View" unique_id=28685085]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -181.0
+offset_top = -50.0
+offset_right = -44.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_hover_color = Color(0.94056034, 0.9319381, 0, 1)
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxEmpty_w48qg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2cqfq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vivmo")
+text = "Continue..."
+script = ExtResource("9_vivmo")
+
+[node name="ItemLabel" type="Label" parent="View" unique_id=1838183804]
+visible = false
+material = SubResource("ShaderMaterial_kek77")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -243.0
+offset_top = -265.0
+offset_right = 275.0
+offset_bottom = -175.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 29
+text = "Placeholder."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="View" unique_id=1480106580]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -206.5
+offset_top = -33.5
+offset_right = 206.5
+offset_bottom = 33.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 50
+text = "Act 1: Weaving"
+horizontal_alignment = 1
+
+[node name="InteractionLabel" type="Label" parent="View" unique_id=1641361566]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -324.0
+offset_top = -195.0
+offset_right = 317.0
+offset_bottom = -167.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 32
+text = "Placeholder"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="View" unique_id=436819380]
+visible = false
+z_index = -1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -369.0
+offset_top = -93.0
+offset_right = 369.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 14
+text = "BLABLABLA"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="View" unique_id=895210624]
+process_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -360.5
+offset_top = -66.0
+offset_right = 360.5
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_074og")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cegan")
+value = 100.0
+show_percentage = false
+script = ExtResource("12_ryguw")
+
+[node name="Objective" type="Label" parent="View" unique_id=537564158]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -931.0
+offset_top = 273.0
+offset_right = -491.0
+offset_bottom = 322.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_lquwl")
+theme_override_font_sizes/font_size = 20
+text = "Objective: "
+script = ExtResource("15_d13ii")
+
+[node name="Voice Lines" type="Node" parent="." unique_id=1482621965]
+
+[node name="VL1" type="AudioStreamPlayer" parent="Voice Lines" unique_id=869032074]
+stream = ExtResource("6_7mycd")
+
+[node name="VLM1" type="AudioStreamPlayer" parent="Voice Lines" unique_id=1198633130]
+stream = ExtResource("9_efxa6")
+
+[node name="VLM2" type="AudioStreamPlayer" parent="Voice Lines" unique_id=1356321203]
+stream = ExtResource("10_dg77c")
+
+[node name="VLM3" type="AudioStreamPlayer" parent="Voice Lines" unique_id=517322980]
+stream = ExtResource("15_074og")
+
+[node name="VLM4" type="AudioStreamPlayer" parent="Voice Lines" unique_id=712852760]
+stream = ExtResource("16_cegan")
+
+[node name="SFX" type="Node" parent="." unique_id=1806287799]
+
+[node name="Rain" type="AudioStreamPlayer" parent="SFX" unique_id=855561828]
+stream = ExtResource("9_kek77")
+autoplay = true
+parameters/looping = true
+
+[node name="ChestOpen" type="AudioStreamPlayer" parent="SFX" unique_id=970717172]
+stream = ExtResource("14_w48qg")
+
+[node name="InventoryOpen" type="AudioStreamPlayer" parent="SFX" unique_id=1108423642]
+process_mode = 3
+stream = ExtResource("21_d13ii")
+
+[node name="Pause" type="Node" parent="." unique_id=1336392410]
+script = ExtResource("20_82xsv")
+
+[node name="Inventory" type="Node" parent="." unique_id=878466698]
+process_mode = 3
+script = ExtResource("24_1u8w0")
+
+[connection signal="pressed" from="View/Next" to="." method="_on_next_pressed"]
