@@ -1,32 +1,49 @@
 extends CharacterBody3D
+
 var SPEED = 3.0
 const JUMP = 4.0
 const SENSITIVITY = 0.001
 const GRAVITY = 6.0
+
 @onready var stamina = $"../View/ProgressBar"
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-@onready var light = $Head/Camera3D/Hand/Flashlight/SpotLight3D
 @onready var light_sfx = $SFX/Flashlight
+@onready var hand: HandManager = $Head/Camera3D/HandManager
+
 var interaction_texture: Sprite3D
 var stamina_value = 100.0
 var stamina_tween: Tween
 var can_sprint = true
 var regen_timer: SceneTreeTimer
 
+# Headbob
+var headbob_speed = 6.0
+var headbob_strength = 0.05
+var headbob_time = 0.0
+var camera_base_y: float
+
 func _ready():
+	add_to_group("player")
+	camera_base_y = camera.position.y
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	interaction_texture = get_tree().get_first_node_in_group("interaction_texture")
 	stamina.max_value = 100.0
 	stamina.value = 100.0
 	stamina.visible = false
 
+func _set_stamina_visible(value: bool) -> void:
+	if value:
+		stamina.visible = true
+	else:
+		if not stamina.is_inventory_open():
+			stamina.visible = false
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
-		camera.rotation.z = 0.0
 
 func _physics_process(delta: float) -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -36,14 +53,16 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_do_raycast()
+	_update_camera_feel(delta)
 
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
+
 	if Input.is_action_pressed("sprint") and is_on_floor() and can_sprint:
 		var tween = create_tween()
 		tween.tween_property(camera, "fov", 90.0, 0.2).set_ease(Tween.EASE_OUT)
 		SPEED = 4.5
-		stamina.visible = true
+		_set_stamina_visible(true)
 		regen_timer = null
 		if stamina_tween:
 			stamina_tween.kill()
@@ -53,12 +72,14 @@ func _physics_process(delta: float) -> void:
 			can_sprint = false
 			SPEED = 3.0
 			_start_regen_with_delay()
+
 	if Input.is_action_just_released("sprint"):
 		SPEED = 3.0
 		var tween = create_tween()
 		tween.tween_property(camera, "fov", 75.0, 0.2).set_ease(Tween.EASE_IN)
 		if can_sprint:
 			_start_regen_with_delay()
+
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction = head.transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)
 	if direction:
@@ -68,6 +89,22 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0.0
 		velocity.z = 0.0
 	move_and_slide()
+
+func _update_camera_feel(delta: float) -> void:
+	# Headbob
+	var is_moving = velocity.length() > 0.1 and is_on_floor()
+	if is_moving:
+		var speed_factor = velocity.length() / SPEED
+		headbob_time += delta * headbob_speed * speed_factor
+		camera.position.y = camera_base_y + sin(headbob_time) * headbob_strength * speed_factor
+	else:
+		camera.position.y = lerp(camera.position.y, camera_base_y, delta * 10.0)
+
+func use_item(item_id: String) -> void:
+	hand.equip(item_id)
+
+func drop_item() -> void:
+	hand.unequip()
 
 var last_interactable: Interactable = null
 
@@ -116,7 +153,7 @@ func _regen_stamina():
 	var fade = create_tween()
 	fade.tween_property(stamina, "modulate:a", 0.0, 0.5)
 	await fade.finished
-	stamina.visible = false
+	_set_stamina_visible(false)
 	stamina.modulate.a = 1.0
 
 func _input(event: InputEvent) -> void:
@@ -125,6 +162,3 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	if event.is_action_pressed("rightclick"):
-		light.visible = !light.visible
-		light_sfx.play()

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dpvffcmgvorm6"]
+
+[ext_resource type="PackedScene" uid="uid://bbuhsu0ps4faj" path="res://Assets/Models/Items/ItemModels/Flashlight/Flashlight.gltf" id="1_bst4s"]
+[ext_resource type="Script" uid="uid://i0jg1nceusd" path="res://Assets/Models/Items/ItemScenes/flashlight_item.gd" id="2_4kpw2"]
+
+[node name="blockbench_export" unique_id=1378764130 instance=ExtResource("1_bst4s")]
+script = ExtResource("2_4kpw2")
+
+[node name="Light" type="SpotLight3D" parent="." index="1" unique_id=1569674542]
+transform = Transform3D(0.007469982, 0, -0.9999721, 0, 1, 0, 0.9999721, 0, 0.007469982, 0.4563877, 0.3081191, 0.0035907812)
+light_energy = 5.0
+light_indirect_energy = 2.426
+light_size = 0.079
+shadow_enabled = true
+spot_range = 15.0
+spot_attenuation = 0.5

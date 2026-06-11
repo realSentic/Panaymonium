@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dg31ju66rtypp" path="res://Assets/Audios/SFX/fwoom.wav" id="3_8aba6"]
 [ext_resource type="Texture2D" uid="uid://bd1lcl6c2p2ir" path="res://Assets/Pictures/UI/use.png" id="4_b1fcq"]
 [ext_resource type="Texture2D" uid="uid://41477lhcxycr" path="res://Assets/Pictures/UI/arrow-right-336-svgrepo-com.svg" id="4_krrbi"]
-[ext_resource type="FontFile" uid="uid://dhd5gs6nwryj1" path="res://Assets/Font/I Still Know.ttf" id="6_b1fcq"]
+[ext_resource type="AudioStream" uid="uid://cn4l6c6f4echh" path="res://Assets/Audios/SFX/click.wav" id="7_uce3s"]
 
 [node name="Inventory" type="Node2D" unique_id=426981541 groups=["inventory_menu"]]
 process_mode = 3
@@ -59,19 +59,23 @@ texture_normal = ExtResource("4_krrbi")
 
 [node name="Item Name" type="Label" parent="." unique_id=1868207627]
 z_index = 1
-offset_left = 408.0
-offset_top = 84.0
-offset_right = 768.0
-offset_bottom = 151.0
-pivot_offset = Vector2(137, 33.5)
+offset_left = 399.0
+offset_top = 82.0
+offset_right = 759.0
+offset_bottom = 149.0
+pivot_offset = Vector2(171, 32)
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("6_b1fcq")
 theme_override_font_sizes/font_size = 48
 text = "Placeholder"
+horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Fwoom" type="AudioStreamPlayer" parent="." unique_id=1175771970]
 stream = ExtResource("3_8aba6")
 
+[node name="Click" type="AudioStreamPlayer" parent="." unique_id=74636695]
+stream = ExtResource("7_uce3s")
+
 [connection signal="pressed" from="HBoxContainer/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="HBoxContainer/Use" to="." method="_on_use_pressed"]
 [connection signal="pressed" from="HBoxContainer/Right" to="." method="_on_right_pressed"]

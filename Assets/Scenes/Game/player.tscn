@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://fgip0x7wi28d"]
 
 [ext_resource type="Script" uid="uid://bayl4gepfpb7s" path="res://Scripts/GDScript/player.gd" id="1_onrkg"]
-[ext_resource type="Script" uid="uid://10r6oc7eotg1" path="res://Scripts/GDScript/breathing.gd" id="3_hqtel"]
-[ext_resource type="PackedScene" uid="uid://bbuhsu0ps4faj" path="res://Assets/Models/Items/Flashlight/Flashlight.gltf" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://dk8khf5m4megd" path="res://Scripts/GDScript/System/Hand/hand_manager.gd" id="2_frpju"]
 [ext_resource type="AudioStream" uid="uid://dobiekg67v6xt" path="res://Assets/Audios/SFX/Flashlight.mp3" id="5_sweqy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
@@ -21,26 +20,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25983256, 0)
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=842076679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92108864, -0.20654514)
 
-[node name="Hand" type="Node3D" parent="Head/Camera3D" unique_id=181174498]
-transform = Transform3D(0.996375, 0, -0.08506913, 0, 1, 0, 0.08506913, 0, 0.996375, -0.16007572, -1.0852771, -0.017570466)
-script = ExtResource("3_hqtel")
+[node name="HandManager" type="Node3D" parent="Head/Camera3D" unique_id=181174498 node_paths=PackedStringArray("hold_point")]
+transform = Transform3D(0.025723293, 0, 0.9996692, 0, 1, 0, -0.9996692, 0, 0.025723293, 0.5434623, -0.5127538, -0.24470928)
+script = ExtResource("2_frpju")
+hold_point = NodePath("Holdpoint")
 
-[node name="Flashlight" parent="Head/Camera3D/Hand" unique_id=1453999902 instance=ExtResource("3_i3pqv")]
-transform = Transform3D(-0.3295258, 0, 0.94414663, 0, 1, 0, -0.94414663, 0, -0.3295258, 0.63130474, 0.51616853, -0.28896448)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D/Hand/Flashlight" unique_id=2016619708]
-transform = Transform3D(-0.15979001, 0.09160225, -0.98289156, -0.0032702552, 0.9956307, 0.09332112, 0.98714554, 0.018126087, -0.15879229, 0.35951695, 0.32632858, -0.013728023)
-light_color = Color(1, 0.62169814, 0.9878811, 1)
-light_energy = 40.0
-light_volumetric_fog_energy = 3.0
-light_size = 0.3
-light_specular = 0.3
-shadow_enabled = true
-shadow_blur = 1.5
-spot_range = 45.0
-spot_attenuation = 1.5
-spot_angle = 30.0
-spot_angle_attenuation = 0.81225234
+[node name="Holdpoint" type="Marker3D" parent="Head/Camera3D/HandManager" unique_id=606777583]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0010930896, 0, -0.012802839)
 
 [node name="SFX" type="Node" parent="." unique_id=552553083]
 

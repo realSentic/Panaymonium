@@ -1,10 +1,16 @@
 extends Node2D
+
 var last_selected_index := -1
+
 @onready var menu_sfx = $Fwoom
+@onready var click_sfx = $Click
+
 var left_tween: Tween
 var right_tween: Tween
 var left_hovered := false
 var right_hovered := false
+
+var equipped_item_id: String = ""
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -63,6 +69,7 @@ func _process(delta: float) -> void:
 			var item_id = selected_panel.get_meta("item_id")
 			if Global.item_db.has(item_id):
 				$"Item Name".text = Global.item_db[item_id]["name"]
+		_update_use_button()
 	for i in range(children.size()):
 		var child = children[i]
 		var tex_rect = child.get_child(0) if child.get_child_count() > 0 else null
@@ -154,3 +161,43 @@ func _input(event: InputEvent) -> void:
 				flash_button($HBoxContainer/Right)
 				if child_count > 1:
 					menu_sfx.play()
+
+func _on_use_pressed() -> void:
+	click_sfx.play()
+	var carousel = $CarouselContainer
+	var children = carousel.position_offset_node.get_children()
+
+	if children.size() == 0:
+		return
+
+	var selected_panel = children[carousel.selected_index]
+	var item_id = selected_panel.get_meta("item_id")
+
+	var found_player = get_tree().get_first_node_in_group("player")
+
+	if equipped_item_id == item_id:
+		equipped_item_id = ""
+		if found_player:
+			found_player.drop_item()
+	else:
+		equipped_item_id = item_id
+		if found_player:
+			found_player.use_item(item_id)
+
+	_update_use_button()
+
+func _update_use_button() -> void:
+	var carousel = $CarouselContainer
+	var children = carousel.position_offset_node.get_children()
+
+	if children.size() == 0:
+		$HBoxContainer/Use.texture_normal = preload("res://Assets/Pictures/UI/use.png")
+		return
+
+	var selected_panel = children[carousel.selected_index]
+	var item_id = selected_panel.get_meta("item_id")
+
+	if item_id == equipped_item_id and equipped_item_id != "":
+		$HBoxContainer/Use.texture_normal = preload("res://Assets/Pictures/UI/use_hover.png")
+	else:
+		$HBoxContainer/Use.texture_normal = preload("res://Assets/Pictures/UI/use.png")
