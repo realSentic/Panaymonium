@@ -33,6 +33,9 @@ player=""
 inventory_menu=""
 interaction_texture=""
 objective_label=""
+computer_node=""
+window_manager=""
+reception_room=""
 
 [gui]
 

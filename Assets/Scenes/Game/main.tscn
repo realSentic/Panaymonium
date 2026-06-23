@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cc4fy17bq8fap" path="res://Scripts/GDScript/main.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://fgip0x7wi28d" path="res://Assets/Scenes/Game/player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://cr1fh52sposlv" path="res://Assets/Models/Rooms/ReceptionRoom.tscn" id="3_5vw27"]
 [ext_resource type="Shader" uid="uid://bwdecqcqra8qx" path="res://Scripts/GDShader/psx.gdshader" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://b1sko42d886m6" path="res://Assets/Scenes/Game/receptionroom.tscn" id="3_q832j"]
 [ext_resource type="PackedScene" uid="uid://citt0ulknmmjs" path="res://Assets/Scenes/Objects/Chest/ChestInteraction.tscn" id="4_getpj"]
+[ext_resource type="Script" uid="uid://gjp4ontedqtr" path="res://Scripts/GDScript/flickeringlights.gd" id="4_nkjhd"]
 [ext_resource type="Script" uid="uid://cbep4hag5el1w" path="res://Assets/Scenes/Game/test.gd" id="5_q832j"]
 [ext_resource type="AudioStream" uid="uid://7edxh4ok3py1" path="res://Assets/Audios/Voice/findthefirstkey.mp3" id="6_7mycd"]
-[ext_resource type="PackedScene" uid="uid://ipajcsueelnf" path="res://Assets/Models/Objects/computer.tscn" id="6_nkjhd"]
 [ext_resource type="PackedScene" uid="uid://ceoa7hjue6xwp" path="res://Assets/Scenes/UI/pausemenu.tscn" id="9_cegan"]
 [ext_resource type="AudioStream" uid="uid://j7ihyo2jmfde" path="res://Assets/Audios/Voice/VLM1.mp3" id="9_efxa6"]
 [ext_resource type="AudioStream" uid="uid://bhlu0sfgqv6qt" path="res://Assets/Audios/SFX/rain.ogg" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://cmikbd2lvsnwd" path="res://Assets/Scenes/UI/crosshair.tscn" id="9_ryguw"]
 [ext_resource type="Script" uid="uid://dd0pbbio8awu5" path="res://Scripts/GDScript/next.gd" id="9_vivmo"]
 [ext_resource type="AudioStream" uid="uid://cwwe7ew1ogfej" path="res://Assets/Audios/Voice/VLM2.mp3" id="10_dg77c"]
-[ext_resource type="Script" uid="uid://cfbx7miijo6o1" path="res://Assets/Scenes/Game/progress_bar.gd" id="10_dmfq0"]
 [ext_resource type="PackedScene" uid="uid://dryi8auc5463s" path="res://Assets/Scenes/UI/inventorymenu.tscn" id="10_getpj"]
+[ext_resource type="Script" uid="uid://bwij5odmx3lh2" path="res://Scripts/GDScript/progress_bar.gd" id="12_nkjhd"]
 [ext_resource type="AudioStream" uid="uid://b7hx355044d2f" path="res://Assets/Audios/SFX/chestopen.mp3" id="14_w48qg"]
 [ext_resource type="AudioStream" uid="uid://centmflrpw57n" path="res://Assets/Audios/Voice/VLM3.mp3" id="15_074og"]
 [ext_resource type="Script" uid="uid://dyvy4nr3723ni" path="res://Scripts/GDScript/objvisible.gd" id="15_d13ii"]
@@ -80,7 +80,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Main" type="Node3D" unique_id=1890810655]
+[node name="Main" type="Node3D" unique_id=1890810655 groups=["reception_room"]]
 process_mode = 1
 script = ExtResource("1_272bh")
 
@@ -92,31 +92,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7270086, 1.0775268, 25.328
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=739609866]
 environment = SubResource("Environment_ig7tw")
 
-[node name="Build" type="Node3D" parent="." unique_id=76692758]
+[node name="Building" type="Node3D" parent="." unique_id=76692758]
 
-[node name="Room1" parent="Build" unique_id=1954024914 instance=ExtResource("3_5vw27")]
+[node name="ReceptionRoom" parent="Building" unique_id=1940320507 instance=ExtResource("3_q832j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25.012918)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Building" unique_id=1206642786]
+transform = Transform3D(1, 0, 0, 0, 0.030032564, 0.999549, 0, -0.999549, 0.030032564, 0, 8.686014, -0.3393557)
+light_energy = 5.0
+shadow_enabled = true
+spot_range = 14.586
+script = ExtResource("4_nkjhd")
 
 [node name="Interactions" type="Node3D" parent="." unique_id=818989739]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.6776814, 0)
 
-[node name="Chest" parent="Interactions" unique_id=1807583506 instance=ExtResource("4_getpj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.24508, 5.56733, 14.453393)
-
-[node name="Chest2" parent="Interactions" unique_id=1659861245 instance=ExtResource("4_getpj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.24508, 5.56733, 9.959708)
-
-[node name="Chest3" parent="Interactions" unique_id=404038493 instance=ExtResource("4_getpj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.24508, 5.56733, 12.319425)
-
 [node name="Area3D" type="Area3D" parent="Interactions" unique_id=1513675902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.64233303, 7.384329)
 script = ExtResource("5_q832j")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactions/Area3D" unique_id=1090202041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.212461, -9.114873)
 shape = SubResource("BoxShape3D_nkjhd")
 
-[node name="Computer" parent="Interactions" unique_id=2004272433 instance=ExtResource("6_nkjhd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.882932, -7.503144)
+[node name="Chest" parent="Interactions" unique_id=1807583506 instance=ExtResource("4_getpj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6862288, 4.953369, 14.324108)
 
 [node name="InventoryUI" type="CanvasLayer" parent="." unique_id=2088054740]
 
@@ -131,10 +131,10 @@ material = SubResource("ShaderMaterial_1bvp3")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
+offset_left = -1.0
 offset_top = -8.0
 offset_right = 4.0
-offset_bottom = -8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -288,7 +288,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_074og")
 theme_override_styles/fill = SubResource("StyleBoxFlat_cegan")
 value = 100.0
 show_percentage = false
-script = ExtResource("10_dmfq0")
+script = ExtResource("12_nkjhd")
 
 [node name="Objective" type="Label" parent="View" unique_id=537564158 groups=["objective_label"]]
 anchors_preset = 5

@@ -23,6 +23,16 @@ var headbob_strength = 0.05
 var headbob_time = 0.0
 var camera_base_y: float
 
+# Footsteps
+var footstep_timer = 0.0
+var footstep_interval = 0.4
+var current_surface = "concrete"
+
+@onready var FOOTSTEP_SOUNDS = {
+	"wood": $FootstepSFX/WoodenFootstep,
+	"grass": $FootstepSFX/GrassFootstep,
+}
+
 func _ready():
 	add_to_group("player")
 	camera_base_y = camera.position.y
@@ -54,6 +64,7 @@ func _physics_process(delta: float) -> void:
 
 	_do_raycast()
 	_update_camera_feel(delta)
+	_update_footsteps(delta)
 
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
@@ -91,7 +102,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _update_camera_feel(delta: float) -> void:
-	# Headbob
 	var is_moving = velocity.length() > 0.1 and is_on_floor()
 	if is_moving:
 		var speed_factor = velocity.length() / SPEED
@@ -99,6 +109,40 @@ func _update_camera_feel(delta: float) -> void:
 		camera.position.y = camera_base_y + sin(headbob_time) * headbob_strength * speed_factor
 	else:
 		camera.position.y = lerp(camera.position.y, camera_base_y, delta * 10.0)
+
+func _update_footsteps(delta: float) -> void:
+	var is_moving = velocity.length() > 0.1 and is_on_floor()
+	if is_moving:
+		var speed_factor = velocity.length() / SPEED
+		footstep_interval = 0.25 if Input.is_action_pressed("sprint") else 0.4
+		footstep_timer -= delta * speed_factor
+		if footstep_timer <= 0.0:
+			footstep_timer = footstep_interval
+			current_surface = _get_floor_material()
+			if FOOTSTEP_SOUNDS.has(current_surface):
+				FOOTSTEP_SOUNDS[current_surface].play()
+	else:
+		footstep_timer = footstep_interval  # reset to full interval so it doesn't fire immediately on next step
+		var surface = current_surface
+		if FOOTSTEP_SOUNDS.has(surface):
+			FOOTSTEP_SOUNDS[surface].stop()  # stop any playing sound immediately
+
+func _get_floor_material() -> String:
+	var space_state = get_world_3d().direct_space_state
+	var from = global_position
+	var to = from + Vector3(0, -1.2, 0)
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [self]
+	var result = space_state.intersect_ray(query)
+	if result and result.collider:
+		var collider = result.collider
+		if collider.is_in_group("wood"):
+			return "wood"
+		elif collider.is_in_group("grass"):
+			return "grass"
+		else:
+			return "concrete"
+	return "concrete"
 
 func use_item(item_id: String) -> void:
 	hand.equip(item_id)

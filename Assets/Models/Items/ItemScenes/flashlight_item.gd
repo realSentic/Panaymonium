@@ -12,5 +12,6 @@ func on_unequip() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_flashlight"):
+		$Flashlight.play()
 		is_on = !is_on
 		light.visible = is_on

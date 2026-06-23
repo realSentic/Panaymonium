@@ -2,12 +2,16 @@
 	"flashlight": {
 		"name": "Flashlight",
 		"description": "A handheld flashlight.",
-		"icon": "res://Assets/Pictures/Inventory/Flashlight/flashlight.png",
-		"preview": "res://Assets/Scenes/Objects/Flashlight/SpinningFlashlight.tscn"
+		"icon": "res://Assets/Pictures/Inventory/flashlight.png",
+		"preview": "res://Assets/Scenes/Objects/Flashlight/SpinningFlashlight.tscn",
+		"usable": true
 	},
-	"key": {
-		"name": "Rusty Key",
+	"paper": {
+		"name": "Paper",
 		"description": "Opens something nearby.",
-		"icon": "res://Models/PSX Files/TEX_Arch_02.png"
+		"icon": "res://Assets/Pictures/Inventory/paper.png",
+		"preview": "res://Assets/Scenes/Objects/Flashlight/SpinningPaper.tscn",
+		"usable": false,
+		"readable": "res://Assets/Pictures/UI/passwordnoteimage.png"
 	}
 }

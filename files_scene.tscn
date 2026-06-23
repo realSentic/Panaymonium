@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bltoxdsontd6"]
+
+[ext_resource type="Script" uid="uid://01s4uylmxt7d" path="res://Assets/Scenes/Game/windowApp.gd" id="1_3hxsx"]
+
+[node name="Window1" type="Control" unique_id=836097227]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 522.0
+offset_bottom = 315.0
+script = ExtResource("1_3hxsx")
+
+[node name="TitleBar" type="ColorRect" parent="." unique_id=997980143]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 163.0
+offset_right = 851.0
+offset_bottom = 506.0
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1642581476]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 163.0
+offset_right = 320.0
+offset_bottom = 182.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Hello"
+
+[node name="ContentArea" type="Control" parent="." unique_id=788387874]
+anchors_preset = 0
+offset_left = 280.0
+offset_top = 163.0
+offset_right = 851.0
+offset_bottom = 506.0
+
+[node name="ResizeHandle" type="Control" parent="." unique_id=1230522372]
+anchors_preset = 0
+offset_left = 280.0
+offset_top = 163.0
+offset_right = 851.0
+offset_bottom = 506.0

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bbuhsu0ps4faj" path="res://Assets/Models/Items/ItemModels/Flashlight/Flashlight.gltf" id="1_bst4s"]
 [ext_resource type="Script" uid="uid://i0jg1nceusd" path="res://Assets/Models/Items/ItemScenes/flashlight_item.gd" id="2_4kpw2"]
+[ext_resource type="AudioStream" uid="uid://dobiekg67v6xt" path="res://Assets/Audios/SFX/Flashlight.mp3" id="3_onf4c"]
 
 [node name="blockbench_export" unique_id=1378764130 instance=ExtResource("1_bst4s")]
 script = ExtResource("2_4kpw2")
@@ -14,3 +15,6 @@ light_size = 0.079
 shadow_enabled = true
 spot_range = 15.0
 spot_attenuation = 0.5
+
+[node name="Flashlight" type="AudioStreamPlayer" parent="." index="2" unique_id=932063692]
+stream = ExtResource("3_onf4c")

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://gk626sq3tuys"]
+
+[ext_resource type="Texture2D" uid="uid://danaf3ivosj4l" path="res://Assets/Pictures/Inventory/paper.png" id="1_4di5r"]
+[ext_resource type="Shader" uid="uid://ctlijdaj5eaf8" path="res://Assets/Scenes/Objects/Flashlight/disintegrate.gdshader" id="1_b6mca"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_abvwk"]
+shader = ExtResource("1_b6mca")
+shader_parameter/dissolve_amount = 0.0
+shader_parameter/edge_color = Color(0.6, 0, 0, 1)
+shader_parameter/inner_color = Color(0.1, 0, 0, 1)
+shader_parameter/edge_width = 0.07600000361
+shader_parameter/pulse_speed = 3.0
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1282845663]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=954756601]
+material = SubResource("ShaderMaterial_abvwk")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4di5r")

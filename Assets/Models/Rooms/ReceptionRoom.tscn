@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://cr1fh52sposlv"]
+[gd_scene format=4 uid="uid://btrr6wwd0pvfn"]
 
 [ext_resource type="Texture2D" uid="uid://wejkwialaocd" path="res://Assets/Textures/TEX_Planks_01.png" id="1_6rydw"]
 [ext_resource type="Texture2D" uid="uid://byr2du5ke8c1t" path="res://Assets/Textures/TEX_Wall_03.png" id="2_23xpx"]
@@ -92,10 +92,10 @@ data = PackedVector3Array(-3.5523, 0.9198, -6.7619, -3.2177, 0.9198, -7.7595997,
 
 [node name="Room1" type="Node3D" unique_id=1954024914]
 
-[node name="Floor" type="MeshInstance3D" parent="." unique_id=93762832]
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=93762832 groups=["wood"]]
 mesh = SubResource("ArrayMesh_isds5")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=342438026]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=342438026 groups=["wood"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=2078013612]
 shape = SubResource("ConcavePolygonShape3D_ietdr")
@@ -118,6 +118,7 @@ mesh = SubResource("ArrayMesh_ugry7")
 shape = SubResource("ConcavePolygonShape3D_c2hg7")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1468573415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3508544, 0)
 mesh = SubResource("ArrayMesh_m4pcx")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CSGBakedMeshInstance3D" unique_id=554577944]
